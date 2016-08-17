@@ -1,68 +1,35 @@
-package nowcodehuawei;
-
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
- * 1,不止输入一组n m ;
-   2,AB之间，可能A>B
+ * 10个学生考完期末考试评卷完成后，A老师需要划出及格线，要求如下：
+(1) 及格线是10的倍数；
+(2) 保证至少有60%的学生及格；
+(3) 如果所有的学生都高于60分，则及格线为60分：
+
+输入10个整数，取值0~100
+输出:	
+输出及格线，10的倍数
+ * 
  */
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		do {
-			int N = sc.nextInt();
-			int M = sc.nextInt();
-			sc.nextLine();
-			int[] score = new int[N];
-			for (int i = 0; i < N; i++) {
-				int x = sc.nextInt();
-				score[i] = x;
-			}
-			sc.nextLine();
-			String[][] operation = new String[M][3];
-			for (int i = 0; i < M; i++) {
-				for (int j = 0; j < 3; j++) {
-					operation[i][j] = sc.next();
-				}
-			}
-			sc.nextLine();
-			judge(N, M, score, operation);
-		} while (sc.hasNextLine());
-		sc.close();
+		String s = sc.nextLine();
+		int[] score = new int[10];
+		for (int i = 0; i < 10; i++) {
+			score[i] = Integer.parseInt(s.split(" ")[i]);
+		}
+		System.out.println(getAverage(score));
 	}
 
-	private static void judge(int n, int m, int[] score, String[][] operation) {
-		for (int i = 0; i < m; i++) {
-			int j = 0;
-			if (operation[i][j].equals("Q")) {
-				System.out.println(getMax(score, Integer.parseInt(operation[i][j + 1]) - 1,
-						Integer.parseInt(operation[i][j + 2]) - 1));
-			} else {
-				exchange(score, Integer.parseInt(operation[i][j + 1]) - 1, Integer.parseInt(operation[i][j + 2]));
-				// System.out.println("交换" + score[8] + ".." +
-				// Integer.parseInt(operation[i][j + 2]));
-			}
-		}
-	}
-
-	public static int getMax(int[] array, int i, int j) {
-		if (i > j) {
-			int tmp = i;
-			i = j;
-			j = tmp;
-		}
-		int max = array[i];
-		for (int k = i; k <= j; k++) {
-			if (array[k] > max) {
-				max = array[k];
-			}
-		}
-		return max;
-	}
-
-	public static void exchange(int[] array, int i, int score) {
-		array[i] = score;
+	public static int getAverage(int[] a) {
+		Arrays.sort(a);
+		if (a[0] >= 60)
+			return 60;
+		else
+			return (a[4] / 10) * 10;
 	}
 }
