@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * 
+ * 给出一个整数。。求小于这个整数的质数 之和为这个整数的组数。。包括质数本身*2 这种情况
  */
 
 /**
@@ -23,30 +23,25 @@ public class Tencent {
 		List<Integer> l = new ArrayList<>();
 		 for(int j = 2; j<m; j++){
 	            if(m(j)){
-	            	System.out.println(j);
+	            	System.out.print(j+" ");
 	               l.add(j);
 	            }
 	        }
-		 int sum = 0;
 		 int n = 0;
-		 int index = 0;
 		 Collections.sort(l);
-		 for(int i=0;i<l.size();i++){
-			sum = l.get(i)*2;
-			if(sum==m){
-				n++;
-				index = i;
-			}
-		 }
-		 
-		 for(int i=0,j=l.size()-1;i<index&&j>index;){
+		 for(int i=0,j=l.size()-1;i<=j;){
 			 if(l.get(i)+l.get(j)<m){
 				 i++;
 				 continue;
 			 }
+			 if(l.get(i)+l.get(j)>m){
+				 j--;
+				 continue;
+			 }
 			 if(l.get(i)+l.get(j)==m){
+				 i++;
+				 j--;
 				 n++;
-				 break;
 			 }
 		 }
 		 System.out.println(n);
